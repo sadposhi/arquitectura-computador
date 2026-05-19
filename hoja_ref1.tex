@@ -1,0 +1,166 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[spanish]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{xcolor}
+\usepackage{multirow}
+
+\title{FICHA}
+\author{Nathaly Campos - C.I. 32.460.314}
+
+\begin{document}
+\maketitle
+\section*{   Guía de Referencia Didáctica: Ensamblador MIPS}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{1. Operaciones Aritméticas}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{\large add} (Suma)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{add \$s1, \$s2, \$s3}
+        \item \textbf{Lógica:} \texttt{\$s1 = \$s2 + \$s3}
+        \item \textbf{Explicación:} Suma los valores de dos registros (\texttt{\$s2} y \texttt{\$s3}) y almacena el resultado en un tercer registro (\texttt{\$s1}).
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{\large sub} (Resta)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{sub \$s1, \$s2, \$s3}
+        \item \textbf{Lógica:} \texttt{\$s1 = \$s2 - \$s3}
+        \item \textbf{Explicación:} Resta el valor de \texttt{\$s3} al de \texttt{\$s2} y guarda el resultado en \texttt{\$s1}.
+    \end{itemize}
+    \vspace{0.2cm}
+    
+    \item \textbf{\large addi} (Suma inmediata)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{addi \$s1, \$s2, 100}
+        \item \textbf{Lógica:} \texttt{\$s1 = \$s2 + 100}
+        \item \textbf{Explicación:} Suma una constante fija (en este caso 100) directamente al valor de un registro.
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{2. Transferencia de Datos (Memoria y Arreglos)}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{\large lw} (Load Word - Cargar palabra)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{lw \$s1, 100(\$s2)}
+        \item \textbf{Lógica:} \texttt{\$s1 = Memoria[\$s2 + 100]}
+        \item \textbf{Explicación:} Lee un bloque de 32 bits desde una posición de memoria (como al acceder al índice de un arreglo estructurado) y lo trae al registro \texttt{\$s1}.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large sw} (Store Word - Guardar palabra)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{sw \$s1, 100(\$s2)}
+        \item \textbf{Lógica:} \texttt{Memoria[\$s2 + 100] = \$s1}
+        \item \textbf{Explicación:} Toma el dato que ya procesaste en el registro \texttt{\$s1} y lo guarda de vuelta en una posición de memoria.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large lh / sh} (Load/Store Half) \textit{y} \textbf{\large lb / sb} (Load/Store Byte)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{lh \$s1, 100(\$s2)} \quad|\quad \texttt{sb \$s1, 100(\$s2)}
+        \item \textbf{Explicación:} Hacen exactamente lo mismo que \texttt{lw} y \texttt{sw}, pero transfiriendo bloques más pequeños: media palabra (16 bits) o un solo byte (8 bits). Útiles para procesar caracteres o números pequeños.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large lui} (Load Upper Immediate)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{lui \$s1, 100}
+        \item \textbf{Lógica:} \texttt{\$s1 = 100 * $2^{16}$}
+        \item \textbf{Explicación:} Carga un número constante directamente en la mitad superior (los 16 bits de más a la izquierda) del registro.
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{3. Operaciones Lógicas}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{\large and / or / nor} (Lógica bit a bit)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{and \$s1, \$s2, \$s3}
+        \item \textbf{Lógica:} \texttt{\$s1 = \$s2 \& \$s3}
+        \item \textbf{Explicación:} Compara los bits de dos registros uno por uno aplicando la compuerta lógica correspondiente (AND, OR, NOR).
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large andi / ori} (Lógica con constante)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{andi \$s1, \$s2, 100}
+        \item \textbf{Explicación:} Aplica la compuerta lógica comparando un registro contra un valor constante que tú defines.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large sll / srl} (Shift Left/Right Logical - Desplazamiento)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{sll \$s1, \$s2, 10}
+        \item \textbf{Lógica:} \texttt{\$s1 = \$s2 $\ll$ 10}
+        \item \textbf{Explicación:} Mueve los bits hacia la izquierda (\texttt{sll}) o derecha (\texttt{srl}). Es el método más rápido en hardware para multiplicar o dividir por potencias de 2.
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{4. Saltos Condicionales (Condicionales lógicos)}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{\large beq / bne} (Branch on Equal / Not Equal)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{beq \$s1, \$s2, L} \quad|\quad \texttt{bne \$s1, \$s2, L}
+        \item \textbf{Lógica:} \texttt{if (\$s1 == \$s2) ir a L} \quad|\quad \texttt{if (\$s1 != \$s2) ir a L}
+        \item \textbf{Explicación:} Compara dos registros. Si son iguales (\texttt{beq}) o si son diferentes (\texttt{bne}), el programa salta a la línea marcada con la etiqueta "L". Son la base para construir estructuras condicionales simples.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large slt / slti} (Set on Less Than)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{slt \$s1, \$s2, \$s3} \quad|\quad \texttt{slti \$s1, \$s2, 100}
+        \item \textbf{Lógica:} \texttt{if (\$s2 < \$s3) \$s1 = 1; else \$s1 = 0}
+        \item \textbf{Explicación:} Evalúa si un registro es menor que otro (o que una constante). Si la afirmación es cierta, guarda un 1 en \texttt{\$s1}. Si es falsa, guarda un 0.
+    \end{itemize}
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{5. Saltos Incondicionales (Ciclos y Acciones Nominadas)}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\begin{itemize}
+    \item \textbf{\large j} (Jump - Salto)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{j 2500}
+        \item \textbf{Lógica:} \texttt{ir a la dirección 10000}
+        \item \textbf{Explicación:} Obliga al programa a saltar directamente a una parte del código sin evaluar nada. Esencial para reiniciar ciclos y mantener un bucle rodando.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large jal} (Jump and Link - Salto y enlace)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{jal 2500}
+        \item \textbf{Explicación:} Salta a una subrutina (acción nominada), pero antes de irse, guarda la dirección actual en el registro \texttt{\$ra} para saber el camino de vuelta.
+    \end{itemize}
+    \vspace{0.2cm}
+
+    \item \textbf{\large jr} (Jump Register - Retorno)
+    \begin{itemize}
+        \item \textbf{Ensamblador:} \texttt{jr \$ra}
+        \item \textbf{Explicación:} Lee la dirección que está guardada en \texttt{\$ra} y salta de vuelta a ese punto. Se utiliza siempre al final de una acción nominada para retornar al flujo principal.
+    \end{itemize}
+\end{itemize}
+\end{document}
