@@ -1,0 +1,126 @@
+\documentclass{article}
+
+% ----- CONFIGURACIÓN DEL IDIOMA Y FUENTES -----
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+% ----- CONFIGURACIÓN DE PÁGINA Y MÁRGENES -----
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% ----- PAQUETES ESENCIALES -----
+\usepackage{amsmath} % Para las ecuaciones matemáticas
+\usepackage{amsfonts}
+\usepackage{xcolor}  % Para darle color a los títulos
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref} % Para enlaces
+
+% ----- DATOS DE LA PORTADA -----
+\title{FICHA - Capítulo 1}
+\author{Nathaly Campos - C.I. 32.460.314}
+\date{\today} % Pone la fecha actual automáticamente, puedes cambiarla por una fija si lo deseas
+
+\begin{document}
+
+\maketitle
+
+\section*{Abstracciones y Tecnología Computacional - CAP 1}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{1. Conceptos Fundamentales de Rendimiento}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+Pilares del rendimiento en un procesador:
+\begin{itemize}
+    \item \textbf{Ciclo de reloj ($T_c$):} Es el pulso constante que marca el ritmo del procesador. Se mide en unidades de tiempo (generalmente nanosegundos o picosegundos).
+    \item \textbf{Frecuencia de reloj ($F_c$):} Es el inverso del ciclo de reloj ($F_c = 1 / T_c$). Representa cuántos ciclos ocurren por segundo y se mide en Hertz (MHz, GHz).
+    \item \textbf{CPI (Ciclos de Reloj por Instrucción):} Es el número promedio de ciclos de reloj que el procesador necesita para ejecutar una instrucción completa. Diferentes instrucciones (ej. suma vs. división) pueden requerir distinto número de ciclos.
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{2. Fórmulas de Rendimiento de la CPU}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+Las siguientes ecuaciones permiten calcular el tiempo total de ejecución de un programa en la CPU. Cada ecuación representa una forma equivalente de calcular lo mismo, dependiendo de los datos que tengamos disponibles.
+
+\vspace{0.3cm}
+
+\textbf{Ecuación 1: Tiempo de CPU usando ciclos totales y duración del ciclo}
+\begin{equation}
+\text{Tiempo CPU} = \text{Ciclos de reloj totales} \times \text{Duración del ciclo de reloj}
+\end{equation}
+\textit{Explicación:} Si sabemos cuántos "pasos" (ciclos) dio el procesador en total y cuánto dura cada paso, multiplicarlos nos da el tiempo total.
+
+\vspace{0.4cm}
+
+\textbf{Ecuación 2: Tiempo de CPU usando ciclos totales y frecuencia}
+\begin{equation}
+\text{Tiempo CPU} = \frac{\text{Ciclos de reloj totales}}{\text{Frecuencia de reloj}}
+\end{equation}
+\textit{Explicación:} Como la frecuencia es el inverso del ciclo de reloj, dividir los ciclos totales entre los ciclos por segundo (frecuencia) nos arroja el tiempo total en segundos.
+
+\vspace{0.4cm}
+
+\textbf{Ecuación 3: Ciclos totales usando instrucciones y CPI}
+\begin{equation}
+\text{Ciclos de reloj totales} = \text{Número de Instrucciones} \times \text{CPI medio}
+\end{equation}
+\textit{Explicación:} Si no conocemos los ciclos totales directamente, podemos estimarlos multiplicando la cantidad de instrucciones del programa por el promedio de ciclos que toma ejecutar cada una (el CPI).
+
+\vspace{0.4cm}
+
+\textbf{Ecuación 4: La Ecuación Clásica de Rendimiento}
+\begin{equation}
+\text{Tiempo CPU} = \text{Número de instrucciones} \times \text{CPI} \times \text{Duración del ciclo de reloj}
+\end{equation}
+\textit{Explicación:} Esta es la forma más desglosada y útil. Combina las ecuaciones anteriores para calcular el tiempo total a partir del código (instrucciones), la arquitectura (CPI) y el hardware físico (ciclo de reloj).
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{3. La Jerarquía de la Memoria (Concepto Clave)}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+Además del procesador, el rendimiento depende críticamente de cómo se accede a los datos. La arquitectura moderna utiliza una jerarquía para equilibrar velocidad, costo y capacidad:
+\begin{itemize}
+    \item \textbf{Registros:} Dentro de la CPU. Extremadamente rápidos, pero muy pocos (ej. los 32 registros de MIPS).
+    \item \textbf{Memoria Caché:} Pequeña y muy rápida, ubicada entre la CPU y la memoria principal. Guarda copias de los datos más utilizados. Se divide en niveles (L1, L2, L3).
+    \item \textbf{Memoria Principal (RAM):} Grande y más lenta. Contiene los programas que se están ejecutando actualmente.
+    \item \textbf{Almacenamiento Secundario (Disco Duro / SSD):} Masivo y no volátil, pero es el más lento de toda la cadena.
+\end{itemize}
+
+\vspace{0.5cm}
+\noindent\textcolor{cyan}{\Large\textbf{4. Ejercicio Práctico Resuelto}}
+\vspace{0.2cm}\hrule\vspace{0.3cm}
+
+\textbf{El Problema:}
+Imagina que tenemos dos máquinas, M1 y M2, y queremos ejecutar un mismo programa en ambas.
+\begin{itemize}
+    \item \textbf{Máquina 1 (M1):} Tiene una frecuencia de reloj de \textbf{2 GHz} ($2 \times 10^9$ ciclos/seg). El programa requiere ejecutar $1 \times 10^9$ instrucciones, con un \textbf{CPI medio de 1.5}.
+    \item \textbf{Máquina 2 (M2):} Tiene una frecuencia de reloj de \textbf{3 GHz} ($3 \times 10^9$ ciclos/seg). El programa, al estar compilado distinto para esta máquina, requiere $1.2 \times 10^9$ instrucciones, con un \textbf{CPI medio de 2.0}.
+\end{itemize}
+¿Qué máquina es más rápida y cuánto tiempo tarda cada una?
+
+\vspace{0.3cm}
+\textbf{Solución Paso a Paso:}
+
+Utilizaremos la \textbf{Ecuación 4} (combinada con la lógica de la Ecuación 2):
+\begin{equation*}
+\text{Tiempo CPU} = \frac{\text{Instrucciones} \times \text{CPI}}{\text{Frecuencia}}
+\end{equation*}
+
+\textbf{Paso 1: Calcular el tiempo para la Máquina 1 (M1)}
+\begin{align*}
+\text{Tiempo M1} &= \frac{(1 \times 10^9 \text{ instrucciones}) \times (1.5 \text{ ciclos/instrucción})}{2 \times 10^9 \text{ ciclos/segundo}} \\
+\text{Tiempo M1} &= \frac{1.5 \times 10^9}{2 \times 10^9} \\
+\text{Tiempo M1} &= \textbf{0.75 segundos}
+\end{align*}
+
+\textbf{Paso 2: Calcular el tiempo para la Máquina 2 (M2)}
+\begin{align*}
+\text{Tiempo M2} &= \frac{(1.2 \times 10^9 \text{ instrucciones}) \times (2.0 \text{ ciclos/instrucción})}{3 \times 10^9 \text{ ciclos/segundo}} \\
+\text{Tiempo M2} &= \frac{2.4 \times 10^9}{3 \times 10^9} \\
+\text{Tiempo M2} &= \textbf{0.80 segundos}
+\end{align*}
+
+\textbf{Conclusión:}
+A pesar de que la Máquina 2 (M2) tiene una frecuencia de reloj mucho mayor (3 GHz vs 2 GHz), \textbf{la Máquina 1 es más rápida} (tarda menos tiempo) para este programa en específico, debido a que su arquitectura (CPI) y su compilador requieren menos ciclos en total.
+
+\end{document}
